@@ -2,17 +2,15 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: Entrepreneur&Innovator&Thinker  # the website title (if blank, full name will be used instead)
+title: Entrepreneur&Innovator&Thinker # the website title (if blank, full name will be used instead)
 first_name: Xinyu
-middle_name: 
+middle_name:
 last_name: Zhang
 email: xinyzng@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Working on crazy cool AI platform, reach out to me if you're talented and want to create the best product or you're a VC looking for the best candidate for your capital!
 footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-  Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
+  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
 keywords: Tech, Entrepreneurship # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: self.jpeg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -104,8 +102,7 @@ zotero_username: # your zotero username
 wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 
 contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
-
+  You can even add a little note about which of these is the best way to reach you. #magic___^_^___line
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
 # -----------------------------------------------------------------------------
@@ -158,8 +155,8 @@ disqus_shortname: al-folio # put your disqus shortname
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
 external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
+- name: medium.com
+  rss_url: https://medium.com/@al-folio/feed
 
 # -----------------------------------------------------------------------------
 # Collections
@@ -205,48 +202,48 @@ kramdown:
 # Includes & excludes
 include: ["_pages"]
 exclude:
-  - bin
-  - CONTRIBUTING.md
-  - CUSTOMIZE.md
-  - docker-compose.yml
-  - Dockerfile
-  - FAQ.md
-  - Gemfile
-  - Gemfile.lock
-  - INSTALL.md
-  - LICENSE
-  - package.json
-  - package-lock.json
-  - purgecss.config.js
-  - README.md
-  - vendor
+- bin
+- CONTRIBUTING.md
+- CUSTOMIZE.md
+- docker-compose.yml
+- Dockerfile
+- FAQ.md
+- Gemfile
+- Gemfile.lock
+- INSTALL.md
+- LICENSE
+- package.json
+- package-lock.json
+- purgecss.config.js
+- README.md
+- vendor
 keep_files:
-  - CNAME
-  - .nojekyll
+- CNAME
+- .nojekyll
 
 # Plug-ins
 plugins:
-  - jekyll-archives
-  - jekyll-email-protect
-  - jekyll-feed
-  - jekyll-get-json
-  - jekyll-imagemagick
-  - jekyll-jupyter-notebook
-  - jekyll-link-attributes
-  - jekyll-minifier
-  - jekyll-paginate-v2
-  - jekyll/scholar
-  - jekyll-sitemap
-  - jekyll-toc
-  - jekyll-twitter-plugin
-  - jemoji
+- jekyll-archives
+- jekyll-email-protect
+- jekyll-feed
+- jekyll-get-json
+- jekyll-imagemagick
+- jekyll-jupyter-notebook
+- jekyll-link-attributes
+- jekyll-minifier
+- jekyll-paginate-v2
+- jekyll/scholar
+- jekyll-sitemap
+- jekyll-toc
+- jekyll-twitter-plugin
+- jemoji
 
 # Sitemap settings
 defaults:
-  - scope:
-      path: "assets"
-    values:
-      sitemap: false
+- scope:
+    path: "assets"
+  values:
+    sitemap: false
 
 sass:
   style: compressed
@@ -313,8 +310,7 @@ enable_publication_badges:
   dimensions: true # Dimensions badge (https://badge.dimensions.ai/)
 
 # Filter out certain bibtex entry keywords used internally from the bib output
-filtered_bibtex_keywords:
-  [abbr, abstract, altmetric, arxiv, bibtex_show, blog, code, html, pdf, poster, preview, selected, slides, supp, video, website]
+filtered_bibtex_keywords: [abbr, abstract, altmetric, arxiv, bibtex_show, blog, code, html, pdf, poster, preview, selected, slides, supp, video, website]
 
 # Maximum number of authors to be shown for each publication (more authors are visible on click)
 max_author_limit: 3 # leave blank to always show all authors
@@ -343,17 +339,17 @@ external_links:
 imagemagick:
   enabled: true # enables responsive images for your site (recommended, see https://github.com/alshedivat/al-folio/issues/537)
   widths:
-    - 480
-    - 800
-    - 1400
+  - 480
+  - 800
+  - 1400
   input_directories:
-    - assets/img/
+  - assets/img/
   input_formats:
-    - ".jpg"
-    - ".jpeg"
-    - ".png"
-    - ".tiff"
-    - ".gif"
+  - ".jpg"
+  - ".jpeg"
+  - ".png"
+  - ".tiff"
+  - ".gif"
   output_formats:
     webp: "-quality 85"
 
@@ -402,18 +398,18 @@ medium_zoom:
 # -----------------------------------------------------------------------------
 
 jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
+- data: resume
+  json: assets/json/resume.json # it can also be an url
 jsonresume:
-  - basics
-  - work
-  - education
-  - publications
-  - projects
-  - volunteer
-  - awards
-  - certificates
-  - skills
-  - languages
-  - interests
-  - references
+- basics
+- work
+- education
+- publications
+- projects
+- volunteer
+- awards
+- certificates
+- skills
+- languages
+- interests
+- references
