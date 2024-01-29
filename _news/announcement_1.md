@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Founding on the most exciting genAI content platform startup.
+Founding the most exciting genAI content platform startup.
