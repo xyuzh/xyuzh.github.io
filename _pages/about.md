@@ -10,6 +10,7 @@ profile:
   image_circular: false # crops the image to make it circular
   more_info: >
     <p> Bay Area, California </p>
+    <p> Entrepreneur, Innovator, Thinker </p>
     <p> Self Made Barista </p>
 
 
