@@ -6,7 +6,7 @@ subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
 
 profile:
   align: right
-  image: self.jpg
+  image: self.jpeg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p> Bay Area, California </p>
