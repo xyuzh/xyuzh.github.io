@@ -9,7 +9,8 @@ profile:
   image: self.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>Bay Area, California</p>
+    <p> Bay Area, California </p>
+    <p> Self Made Barista </p>
 
 
 news: true # includes a list of news items
