@@ -218,10 +218,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                       github={sanitizedConfig.github}
                       social={sanitizedConfig.social}
                     />
-                    {sanitizedConfig.skills.length !== 0 && (
-                      <SkillCard
+                    {sanitizedConfig.educations.length !== 0 && (
+                      <EducationCard
                         loading={loading}
-                        skills={sanitizedConfig.skills}
+                        educations={sanitizedConfig.educations}
                       />
                     )}
                     {sanitizedConfig.experiences.length !== 0 && (
@@ -236,10 +236,10 @@ const GitProfile = ({ config }: { config: Config }) => {
                         certifications={sanitizedConfig.certifications}
                       />
                     )}
-                    {sanitizedConfig.educations.length !== 0 && (
-                      <EducationCard
+                    {sanitizedConfig.skills.length !== 0 && (
+                      <SkillCard
                         loading={loading}
-                        educations={sanitizedConfig.educations}
+                        skills={sanitizedConfig.skills}
                       />
                     )}
                   </div>
@@ -256,28 +256,28 @@ const GitProfile = ({ config }: { config: Config }) => {
                         googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                       />
                     )}
-                    {sanitizedConfig.publications.length !== 0 && (
-                      <PublicationCard
-                        loading={loading}
-                        publications={sanitizedConfig.publications}
-                      />
-                    )}
                     {sanitizedConfig.projects.external.projects.length !==
                       0 && (
-                      <ExternalProjectCard
-                        loading={loading}
-                        header={sanitizedConfig.projects.external.header}
-                        externalProjects={
-                          sanitizedConfig.projects.external.projects
-                        }
-                        googleAnalyticId={sanitizedConfig.googleAnalytics.id}
-                      />
-                    )}
+                        <ExternalProjectCard
+                          loading={loading}
+                          header={sanitizedConfig.projects.external.header}
+                          externalProjects={
+                            sanitizedConfig.projects.external.projects
+                          }
+                          googleAnalyticId={sanitizedConfig.googleAnalytics.id}
+                        />
+                      )}
                     {sanitizedConfig.blog.display && (
                       <BlogCard
                         loading={loading}
                         googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
                         blog={sanitizedConfig.blog}
+                      />
+                    )}
+                    {sanitizedConfig.publications.length !== 0 && (
+                      <PublicationCard
+                        loading={loading}
+                        publications={sanitizedConfig.publications}
                       />
                     )}
                   </div>
