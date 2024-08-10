@@ -12,7 +12,7 @@ const CONFIG = {
   base: '/',
   projects: {
     github: {
-      display: true, // Display GitHub projects?
+      display: false, // Display GitHub projects?
       header: 'Github Projects',
       mode: 'automatic', // Mode can be: 'automatic' or 'manual'
       automatic: {
@@ -33,32 +33,24 @@ const CONFIG = {
       // To hide the `External Projects` section, keep it empty.
       projects: [
         {
-          title: 'Project Name',
+          title: 'JIPCAD',
           description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
+            'Supervised by professor Carlo Sequin at UC Berkeley, I led the JIPCAD project which utilizes powerful math parsing capabilities to generate elegant, artistic geometries that embrace the beauty of math.',
           imageUrl:
-            'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
-          link: 'https://example.com',
-        },
-        {
-          title: 'Project Name',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-          imageUrl:
-            'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
-          link: 'https://example.com',
+            'https://jipcad.github.io/assets/images/lumpysphere-1d893b3795ce9cceb88ed095414f9778.gif',
+          link: 'https://jipcad.github.io/',
         },
       ],
     },
   },
   seo: {
-    title: 'Portfolio of Ariful Alam',
-    description: '',
-    imageURL: '',
+    title: 'Dream bold & Work hard',
+    description: 'The mission of Xinyu Zhang at birth is undefined, but when I realize I can use my brain to think and body to build, I immediately want to colonize the outer space!',
+    imageURL: 'https://cdn.cara.app/production/posts/90150109-c03f-426b-bdfe-fe766c7c4603/carolcao-DesYvvET19XWhP2CIep4i-BA817950-CE37-4C4F-A7CD-B563EF648B36.jpg',
   },
   social: {
-    linkedin: 'ariful-alam',
-    twitter: 'arif_szn',
+    linkedin: 'zhxy',
+    twitter: 'xinyzng',
     mastodon: '',
     researchGate: '',
     facebook: '',
@@ -69,101 +61,79 @@ const CONFIG = {
     udemy: '',
     dribbble: '',
     behance: '',
-    medium: 'xyuzh',
-    dev: 'xyuzh',
+    medium: '',
+    dev: '',
     stackoverflow: '', // example: '1/jeff-atwood'
     skype: '',
     telegram: '',
-    website: 'https://www.xyuzh.com',
+    website: '',
     phone: '',
     email: 'xinyzng@gmail.com',
   },
   resume: {
     fileUrl:
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
+      '', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
-    'PHP',
-    'Laravel',
-    'JavaScript',
-    'React.js',
-    'Node.js',
-    'Nest.js',
-    'MySQL',
-    'PostgreSQL',
-    'Git',
-    'Docker',
-    'PHPUnit',
-    'CSS',
-    'Antd',
-    'Tailwind',
+    '🏓 Pingpong',
+    '🪂 Sky diving',
+    '☕ Latte art',
+    '⛷️ Ski',
+    '🧑‍🍳 Cooking'
   ],
   experiences: [
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'September 2021',
+      company: 'Alphice',
+      position: 'Founder',
+      from: '2024',
       to: 'Present',
-      companyLink: 'https://example.com',
+      companyLink: 'https:/alphice.com',
     },
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'July 2019',
-      to: 'August 2021',
+      company: 'Meta',
+      position: 'Software Engineer',
+      from: 'Sep 2023',
+      to: 'Present',
       companyLink: 'https://example.com',
     },
   ],
   certifications: [
     {
-      name: 'Lorem ipsum',
-      body: 'Lorem ipsum dolor sit amet',
-      year: 'March 2022',
-      link: 'https://example.com',
+      body: 'National Olympiad in Mathematics',
     },
   ],
   educations: [
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2015',
-      to: '2019',
+      institution: 'Carnegie Mellon Univeristy',
+      degree: 'School of Computer Science',
+      from: 'Jan 2022',
+      to: 'Aug 2023',
     },
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2012',
-      to: '2014',
+      institution: 'Massachusetts Institute of Technology',
+      degree: 'Advanced Study',
+      from: 'Jan 2022',
+      to: 'May 2022',
     },
   ],
   publications: [
     {
-      title: 'Publication Title',
-      conferenceName: '',
-      journalName: 'Journal Name',
-      authors: 'John Doe, Jane Smith',
-      link: 'https://example.com',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      title: 'Publication Title',
-      conferenceName: 'Conference Name',
+      title: 'CLRN: A reasoning network for multi-relation question answering over Cross-lingual Knowledge Graphs',
+      conferenceName: 'Expert Systems with Applications',
       journalName: '',
-      authors: 'John Doe, Jane Smith',
-      link: 'https://example.com',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      authors: '',
+      link: 'https://www.sciencedirect.com/science/article/pii/S095741742301223X',
+      description: 'Introduces CLRN, a novel CLKGQA model that enables multi-hop reasoning across different language KGs without merging. It addresses two key issues: removing dependency on fused KGs and improving entity alignment. CLRN uses an iterative framework with Entity Alignment, extracting potential alignment triple pairs and mining missing relations. Experiments demonstrate improved performance in both QA and EA tasks, contributing insights into their correlation.',
     },
   ],
   // Display articles from your medium or dev account. (Optional)
   blog: {
-    source: 'dev', // medium | dev
-    username: 'xyuzh', // to hide blog section, keep it empty
+    source: 'medium', // medium | dev
+    username: 'xinyzng', // to hide blog section, keep it empty
     limit: 2, // How many articles to display. Max is 10.
   },
   googleAnalytics: {
-    id: '', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
+    id: 'G-MCVEMXQ6Y0', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
   },
   // Track visitor interaction and behavior. https://www.hotjar.com
   hotjar: {
@@ -171,11 +141,11 @@ const CONFIG = {
     snippetVersion: 6,
   },
   themeConfig: {
-    defaultTheme: 'lofi',
+    defaultTheme: 'pastel',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
-    disableSwitch: false,
+    disableSwitch: true,
 
     // Should use the prefers-color-scheme media-query,
     // using user system preferences, instead of the hardcoded defaultTheme
