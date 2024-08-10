@@ -37,7 +37,7 @@ const CONFIG = {
           description:
             'Empowering everyone to be game producer and explore open-ended fantasy worlds!',
           imageUrl:
-            'https://www.alphice.com/preload/landing.gif',
+            'https://www.alphice.com/static/media/alphice_2.16c84e5a5f9fdd72c0f6.gif',
           link: 'https://www.alphice.com/',
         },
         {
