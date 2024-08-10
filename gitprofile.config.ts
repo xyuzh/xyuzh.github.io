@@ -33,6 +33,14 @@ const CONFIG = {
       // To hide the `External Projects` section, keep it empty.
       projects: [
         {
+          title: 'Alphice',
+          description:
+            'Empowering everyone to be game producer and explore open-ended fantasy worlds!',
+          imageUrl:
+            'https://www.alphice.com/preload/landing.gif',
+          link: 'https://www.alphice.com/',
+        },
+        {
           title: 'JIPCAD',
           description:
             'Supervised by professor Carlo Sequin at UC Berkeley, I led the JIPCAD project which utilizes powerful math parsing capabilities to generate elegant, artistic geometries that embrace the beauty of math.',
