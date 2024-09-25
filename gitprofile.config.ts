@@ -102,7 +102,7 @@ const CONFIG = {
       position: 'Software Engineer',
       from: 'Sep 2023',
       to: 'Present',
-      companyLink: 'https://example.com',
+      companyLink: 'https://meta.com',
     },
   ],
   certifications: [
