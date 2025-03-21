@@ -43,7 +43,7 @@ const CONFIG = {
         {
           title: 'OpenManus',
           description:
-            'AI agentic framework with tool calling and browser-use to reproduce Manus. 38k+ GitHub stars.',
+            'AI agentic framework with tool calling and browser-use to reproduce Manus.',
           imageUrl:
             'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-ZoLi0ewIEm3B0XcMMLTxtbAptDzgTV.png',
           link: 'https://github.com/mannaandpoem/OpenManus',
@@ -52,14 +52,12 @@ const CONFIG = {
           title: 'Go-Viral',
           description:
             'Trained on millions of viral tweets to copy the pattern into your tweets.',
-          imageUrl:
-            'go-viral.png',
+          imageUrl: 'go-viral.png',
           link: 'https://go-viral.org/',
         },
         {
           title: 'JIPCAD',
-          description:
-            'Supervised by professor Carlo Sequin at UC Berkeley, I led the JIPCAD project which utilizes powerful math parsing capabilities to generate elegant, artistic geometries.',
+          description: 'Parse algebraic formulas into beautiful geometries.',
           imageUrl:
             'https://jipcad.github.io/assets/images/lumpysphere-1d893b3795ce9cceb88ed095414f9778.gif',
           link: 'https://jipcad.github.io/',
@@ -120,35 +118,11 @@ const CONFIG = {
       description: 'Designed pipeline to retrieve and summarize posts in 5M+ groups with genAI. Launched full-stack mobile screens for facebook app used by 2B+ users. Launched A/B test for notifications that boosted user session by 4%.'
     },
     {
-      company: 'Meta',
-      position: 'Software Developer Engineer Intern',
-      from: 'May 2022',
-      to: 'Aug 2022',
-      companyLink: 'https://meta.com',
-      description: 'Best rating in the cohort and top 5% in performance. Implemented an identity matching framework for facebook ads that produced 8-figures revenue gain.'
-    },
-    {
-      company: 'Southeast University',
-      position: 'AI Researcher',
-      from: 'Jun 2021',
-      to: 'Jan 2022',
-      companyLink: 'https://www.seu.edu.cn/english/',
-      description: 'Implemented the SOTA approach for cross-lingual knowledge graph question answering. Achieved > 1% improvement compared with the previous SOTA on cross-lingual QA. Paper accepted by top AI journal(Q1) Expert Systems with Applications.'
-    },
-    {
-      company: 'UC Berkeley',
-      position: 'Research Apprentice',
-      from: 'Jan 2020',
-      to: 'May 2021',
-      companyLink: 'https://berkeley.edu',
-      description: 'Advised by Professor Carlo Sequin to lead JIPCAD: graphics generation through interactive procedure.'
-    },
-    {
-      company: 'Alphice',
-      position: 'Founder',
-      from: '2023',
-      to: 'Present',
-      companyLink: 'https://alphice.com',
+      company: 'MIT',
+      position: 'Advanced Study',
+      from: '2022',
+      to: '2022',
+      companyLink: 'https://mit.edu',
       description: 'Built immersive AI storytelling platform with 30k+ users across iOS and Android. Got into YC and A16Z interviews.'
     },
   ],
