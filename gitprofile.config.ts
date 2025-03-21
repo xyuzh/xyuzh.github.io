@@ -45,7 +45,7 @@ const CONFIG = {
           description:
             'AI agentic framework with tool calling and browser-use to reproduce Manus. 38k+ GitHub stars.',
           imageUrl:
-            'https://github.com/mannaandpoem/OpenManus',
+            'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-ZoLi0ewIEm3B0XcMMLTxtbAptDzgTV.png',
           link: 'https://github.com/mannaandpoem/OpenManus',
         },
         {
@@ -53,7 +53,7 @@ const CONFIG = {
           description:
             'Trained on millions of viral tweets to copy the pattern into your tweets.',
           imageUrl:
-            'https://go-viral.org/favicon.ico',
+            'go-viral.png',
           link: 'https://go-viral.org/',
         },
         {
