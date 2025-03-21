@@ -118,11 +118,11 @@ const CONFIG = {
       description: 'Designed pipeline to retrieve and summarize posts in 5M+ groups with genAI. Launched full-stack mobile screens for facebook app used by 2B+ users. Launched A/B test for notifications that boosted user session by 4%.'
     },
     {
-      company: 'MIT',
-      position: 'Advanced Study',
-      from: '2022',
-      to: '2022',
-      companyLink: 'https://mit.edu',
+      company: 'Alphice',
+      position: 'CEO',
+      from: '2023',
+      to: '2024',
+      companyLink: 'https://alphice.com',
       description: 'Built immersive AI storytelling platform with 30k+ users across iOS and Android. Got into YC and A16Z interviews.'
     },
   ],
@@ -146,7 +146,7 @@ const CONFIG = {
   educations: [
     {
       institution: 'Carnegie Mellon University',
-      degree: "Master's in Computational Data Science (AI+System Track)",
+      degree: "Master's in Computational Data Science",
       from: 'Jan 2022',
       to: 'Sep 2023',
     },
@@ -158,15 +158,9 @@ const CONFIG = {
     },
     {
       institution: 'University of California Berkeley',
-      degree: 'EECS, Operating Systems: A, GPA: 4.0',
+      degree: 'EECS',
       from: 'May 2020',
       to: 'Aug 2021',
-    },
-    {
-      institution: 'Southeast University',
-      degree: 'Bachelor of Engineering in Information Engineering',
-      from: 'Sep 2017',
-      to: 'May 2021',
     },
   ],
   publications: [
