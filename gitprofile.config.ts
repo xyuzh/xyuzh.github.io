@@ -46,7 +46,7 @@ const CONFIG = {
             'AI agentic framework with tool calling and browser-use to reproduce Manus.',
           imageUrl:
             'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-ZoLi0ewIEm3B0XcMMLTxtbAptDzgTV.png',
-          link: 'https://github.com/mannaandpoem/OpenManus',
+          link: 'https://github.com/FoundationAgents/OpenManus',
         },
         {
           title: 'Go-Viral',
