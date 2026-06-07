@@ -65,6 +65,9 @@ const CONFIG = {
       ],
     },
   },
+  bio: `I am currently at the special project team at [Anyscale](https://anyscale.com) where I work on post training research and maintain open-source project [Ray](https://github.com/ray-project/ray) to support scalable infra across pretraining data curation to inference and RL by working together with [Robert Nishihara](https://scholar.google.com/citations?user=zP0S_ikAAAAJ&hl=en).
+
+Previously I received my M.S. degree from the [Language Technology Institute](https://www.lti.cs.cmu.edu/) at Carnegie Mellon University. I worked at Meta lauching experiments testing LLM product features. I also initiated the effort of world model product for which I won [International Design Awards](https://www.idesignawards.com/winners/zoom.php?eid=9-55678-24) and [European Product Design Award](https://www.productdesignaward.eu/winners/epda/2024/11916/). I also worked as cofounder and CTO of [better.new](https://better.new) where I explored post training research and agent harness.`,
   seo: {
     title: 'Xinyu Zhang - Developer & Researcher',
     description: 'Software Engineer at Meta, AI Researcher, and Founder of Alphice with experience at Carnegie Mellon, MIT, and UC Berkeley.',
@@ -73,6 +76,8 @@ const CONFIG = {
   social: {
     linkedin: 'zhxy',
     twitter: 'xinyzng',
+    googleScholar:
+      'https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=2OvXQj4AAAAJ',
     mastodon: '',
     researchGate: '',
     facebook: '',
@@ -128,19 +133,18 @@ const CONFIG = {
   ],
   certifications: [
     {
-      name: 'International Design Award',
-      body: 'Recognition for Excellence in Design Innovation',
+      name: 'International Design Awards (IDA)',
+      body: 'Honorable Mention — Graphic Design, Mobile/Web App — Alphice',
       year: '2024',
-      link: 'https://www.idesignawards.com/winners/zoom.php?eid=9-55678-24'
+      link: 'https://www.idesignawards.com/winners/zoom.php?eid=9-55678-24',
+      logoUrl: '/logo-ida-badge.png',
     },
     {
-      name: 'European Product Design Award',
-      body: 'Distinguished Achievement in Product Design',
+      name: 'European Product Design Award (EPDA)',
+      body: 'Winner — Product Design — Alphice',
       year: '2024',
-      link: 'https://www.productdesignaward.eu/winners/epda/2024/11916/'
-    },
-    {
-      body: 'National Olympiad in Mathematics',
+      link: 'https://www.productdesignaward.eu/winners/epda/2024/11916/',
+      logoUrl: '/logo-epda.png',
     },
   ],
   educations: [
@@ -165,14 +169,53 @@ const CONFIG = {
   ],
   publications: [
     {
-      title: 'CLRN: A Reasoning Network for Multi-Relation Question Answering',
-      conferenceName: '',
-      journalName: 'Expert Systems with Applications',
+      title: 'Gradient-Aware Scheduling: Coupling Curriculum and Staleness for Async Reinforcement Learning',
+      conferenceName: 'International Conference on Machine Learning (ICML), 2026',
+      journalName: '',
       authors: 'Xinyu Zhang',
+      link: 'https://icml.cc/virtual/2026/poster/65913',
+      description: 'Formalizes a staleness budget optimization problem in asynchronous RL, proving optimal allocation follows exponential decay with task difficulty. Introduces ACEAS (Adaptive Curriculum with Execution-Aware Async Scheduling), combining bandit-based curriculum selection with execution-aware staleness budgets. Achieves 2× higher throughput vs. synchronous baselines and improves Pass@1 from 39.7% to 60.1% on code generation benchmarks.',
+    },
+    {
+      title:
+        'What Do World Models Learn in RL? Probing Latent Representations in Learned Environment Simulators',
+      conferenceName: 'ICLR Workshop on World Models, 2026',
+      journalName: '',
+      authors: 'Xinyu Zhang',
+      link: 'https://openreview.net/forum?id=VE7JJLVKG1',
+      description:
+        'Probes two architecturally distinct world models (transformer and diffusion) and finds they develop structured, approximately linear internal representations of game state, confirmed by causal interventions.',
+    },
+    {
+      title:
+        'Stabilizing Iterative Self-Training with Verified Reasoning via Symbolic Recursive Self-Alignment',
+      conferenceName: 'ICLR Workshop on LLM Reasoning, 2026',
+      journalName: '',
+      authors: 'Xinyu Zhang',
+      link: 'https://openreview.net/forum?id=nf2omuZ9wn',
+      description:
+        'Stabilizes recursive self-improvement by embedding symbolic verification (via sympy) into the self-training loop, filtering training data at the reasoning-step level to eliminate "lucky guesses" and enable deeper iterative self-training.',
+    },
+    {
+      title: 'CLRN: A Reasoning Network for Multi-Relation Question Answering over Cross-Lingual Knowledge Graphs',
+      conferenceName: '',
+      journalName: 'Expert Systems with Applications, Volume 231, 2023.',
+      authors: 'Yiming Tan, Xinyu Zhang, Yongrui Chen, Zafar Ali, Yuncheng Hua, Guilin Qi',
       link: 'https://www.sciencedirect.com/science/article/pii/S095741742301223X',
-      description: 'Introduces CLRN, a novel CLKGQA model that enables multi-hop reasoning across different language KGs without merging. It addresses two key issues: removing dependency on fused KGs and improving entity alignment. CLRN uses an iterative framework with Entity Alignment, extracting potential alignment triple pairs and mining missing relations. Experiments demonstrate improved performance in both QA and EA tasks, contributing insights into their correlation.',
+      description: '',
     },
   ],
+  // Invited talks (rendered as: Title, Venue, Location, Year [video])
+  talks: [
+    {
+      title: 'Fault tolerant SGLang serving with Ray actor backend',
+      venue: 'SGLang Office Hour',
+      year: '2026',
+      link: 'https://www.youtube.com/watch?v=JiC_KQFoCLk&t=73s',
+    },
+  ],
+  // Academic service (rendered as its own section; supports markdown links)
+  service: ['Reviewer: ICLR, NeurIPS, ICML'],
   // Display articles from your medium or dev account. (Optional)
   blog: {
     source: 'medium', // medium | dev

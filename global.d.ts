@@ -118,6 +118,11 @@ interface Social {
   twitter?: string;
 
   /**
+   * Google Scholar profile URL or user id
+   */
+  googleScholar?: string;
+
+  /**
    * Mastodon
    */
   mastodon?: string;
@@ -228,6 +233,7 @@ interface Certification {
   name?: string;
   year?: string;
   link?: string;
+  logoUrl?: string;
 }
 
 interface Education {
@@ -244,6 +250,14 @@ interface Publication {
   authors?: string;
   link?: string;
   description?: string;
+}
+
+interface Talk {
+  title: string;
+  link?: string;
+  venue?: string;
+  location?: string;
+  year?: string;
 }
 
 interface GoogleAnalytics {
@@ -405,6 +419,16 @@ interface Config {
   publications?: Array<Publication>;
 
   /**
+   * Selected talks list
+   */
+  talks?: Array<Talk>;
+
+  /**
+   * Academic service list (e.g. reviewer roles). Supports markdown links.
+   */
+  service?: Array<string>;
+
+  /**
    * Resume
    */
   resume?: Resume;
@@ -428,6 +452,11 @@ interface Config {
    * Theme config
    */
   themeConfig?: ThemeConfig;
+
+  /**
+   * Custom bio paragraph (shown on academic layout)
+   */
+  bio?: string;
 
   /**
    * Custom footer

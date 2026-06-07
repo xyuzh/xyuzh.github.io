@@ -45,6 +45,7 @@ export interface SanitizedSEO {
 export interface SanitizedSocial {
   linkedin?: string;
   twitter?: string;
+  googleScholar?: string;
   mastodon?: string;
   researchGate?: string;
   facebook?: string;
@@ -82,6 +83,7 @@ export interface SanitizedCertification {
   name?: string;
   year?: string;
   link?: string;
+  logoUrl?: string;
 }
 
 export interface SanitizedEducation {
@@ -98,6 +100,14 @@ export interface SanitizedPublication {
   authors?: string;
   link?: string;
   description?: string;
+}
+
+export interface SanitizedTalk {
+  title: string;
+  link?: string;
+  venue?: string;
+  location?: string;
+  year?: string;
 }
 
 export interface SanitizedGoogleAnalytics {
@@ -137,6 +147,7 @@ export interface SanitizedThemeConfig {
 
 export interface SanitizedConfig {
   github: SanitizedGithub;
+  bio?: string;
   projects: SanitizedProjects;
   seo: SanitizedSEO;
   social: SanitizedSocial;
@@ -146,6 +157,8 @@ export interface SanitizedConfig {
   educations: Array<SanitizedEducation>;
   certifications: Array<SanitizedCertification>;
   publications: Array<SanitizedPublication>;
+  talks: Array<SanitizedTalk>;
+  service: Array<string>;
   googleAnalytics: SanitizedGoogleAnalytics;
   hotjar: SanitizedHotjar;
   blog: SanitizedBlog;

@@ -63,6 +63,7 @@ export const getSanitizedConfig = (
       social: {
         linkedin: config?.social?.linkedin,
         twitter: config?.social?.twitter,
+        googleScholar: config?.social?.googleScholar,
         mastodon: config?.social?.mastodon,
         facebook: config?.social?.facebook,
         instagram: config?.social?.instagram,
@@ -104,6 +105,8 @@ export const getSanitizedConfig = (
           (item) => item.institution || item.degree || item.from || item.to,
         ) || [],
       publications: config?.publications?.filter((item) => item.title) || [],
+      talks: config?.talks?.filter((item) => item.title) || [],
+      service: config?.service?.filter((item) => item.trim()) || [],
       googleAnalytics: {
         id: config?.googleAnalytics?.id,
       },
@@ -148,6 +151,7 @@ export const getSanitizedConfig = (
             DEFAULT_CUSTOM_THEME['--rounded-btn'],
         },
       },
+      bio: config?.bio,
       footer: config?.footer,
       enablePWA: config?.enablePWA ?? true,
     };
