@@ -448,6 +448,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                 <PublicationCard
                   loading={loading}
                   publications={sanitizedConfig.publications}
+                  highlightAuthor={profile?.name}
                 />
               )}
 

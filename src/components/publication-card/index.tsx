@@ -1,12 +1,31 @@
+import { Fragment } from 'react';
 import { SanitizedPublication } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
+
+// Bolds the site owner's name within an authors line.
+const renderAuthors = (
+  authors: string,
+  highlight?: string,
+): React.ReactNode => {
+  const name = highlight?.trim();
+  if (!name || !authors.includes(name)) return authors;
+  const parts = authors.split(name);
+  return parts.map((part, i) => (
+    <Fragment key={i}>
+      {part}
+      {i < parts.length - 1 && <strong>{name}</strong>}
+    </Fragment>
+  ));
+};
 
 const PublicationCard = ({
   publications,
   loading,
+  highlightAuthor,
 }: {
   publications: SanitizedPublication[];
   loading: boolean;
+  highlightAuthor?: string;
 }) => {
   if (loading) {
     return (
@@ -44,7 +63,9 @@ const PublicationCard = ({
               <span className="academic-pub-title-plain">{pub.title}</span>
             )}
             {pub.authors && (
-              <p className="academic-pub-authors">{pub.authors}</p>
+              <p className="academic-pub-authors">
+                {renderAuthors(pub.authors, highlightAuthor)}
+              </p>
             )}
             {(pub.conferenceName || pub.journalName) && (
               <p className="academic-pub-venue">
