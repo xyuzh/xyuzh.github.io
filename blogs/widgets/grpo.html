@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:opsz@6..72&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#1b2028; --card:#15181f; --ink:#ece9e3; --muted:#8b94a3; --faint:#6c7682;
+    --line:#242a33; --line-strong:#333b47;
+    --rl:#e2935c; --rl-tint:rgba(226,147,92,.16); --rl-edge:rgba(226,147,92,.42);
+    --lm:#7ea6f7; --lm-tint:rgba(126,166,247,.16); --lm-edge:rgba(126,166,247,.42);
+    --pos:#5fc77f; --neg:#e8736a;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --disp:"Fraunces",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --rad:14px;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  html,body{margin:0;background:#0f1216}
+  body{font-family:var(--serif);color:var(--ink);-webkit-font-smoothing:antialiased;padding:2px}
+
+  .m{font-family:var(--mono);font-size:.92em;font-weight:500;white-space:nowrap}
+
+  .widget{border:1px solid var(--line-strong);border-radius:var(--rad);background:var(--card);overflow:hidden}
+  .widget-head{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#1a1f27}
+  .widget-title{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .widget-title b{color:var(--ink)}
+  .widget-body{padding:24px 22px}
+  .ctrls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button.btn{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.02em;padding:8px 15px;border-radius:9px;border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .14s}
+  button.btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+  button.btn:active{transform:translateY(0)}
+  button.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  button.btn.primary:hover{background:#fff}
+
+  .grpo-prompt{font-family:var(--serif);font-size:17px;margin-bottom:4px}
+  .grpo-prompt .a{font-family:var(--mono);font-size:13px;color:var(--pos);background:rgba(47,122,79,.1);padding:1px 7px;border-radius:5px}
+  .slider-row{display:flex;align-items:center;gap:12px;margin:14px 0 22px;font-family:var(--mono);font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+  .slider-row input[type=range]{flex:1;min-width:140px;accent-color:var(--lm)}
+  .slider-row .val{color:var(--lm);font-weight:600;min-width:3.2em;text-align:right}
+  .grpo-grid{display:grid;grid-template-columns:auto auto 1fr;gap:0 14px;align-items:center}
+  .grpo-row{display:contents}
+  .grpo-row > div{padding:7px 0;border-bottom:1px solid var(--line)}
+  .gr-ans{font-family:var(--mono);font-size:14px;font-weight:500}
+  .gr-rew{font-family:var(--mono);font-size:13px;text-align:center;white-space:nowrap}
+  .gr-rew.ok{color:var(--pos)} .gr-rew.no{color:var(--neg)}
+  .bar-area{position:relative;height:22px}
+  .bar-axis{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:var(--line-strong)}
+  .bar{position:absolute;top:3px;height:16px;border-radius:4px;transition:all .4s cubic-bezier(.2,.7,.2,1)}
+  .bar.pos{left:50%;background:var(--pos)}
+  .bar.neg{right:50%;background:var(--neg)}
+  .bar-val{position:absolute;top:1px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .grpo-stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .grpo-stats b{color:var(--ink);font-weight:600}
+  .grpo-note{margin-top:14px;font-size:14.5px;color:var(--muted);font-style:italic;line-height:1.5;font-family:var(--serif);min-height:1.4em}
+  .axis-key{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+  .axis-key .lo{color:var(--neg)} .axis-key .hi{color:var(--pos)}
+  @media (max-width:620px){ .grpo-grid{grid-template-columns:auto auto 1fr;gap:0 8px} }
+  @media (prefers-reduced-motion:reduce){ *{animation-duration:.001s !important} }
+</style>
+</head>
+<body>
+
+<div class="widget" id="grpo">
+  <div class="widget-head">
+    <div class="widget-title">Demo 2 · <b>group-relative advantage</b> (the heart of GRPO)</div>
+    <div class="ctrls"><button class="btn primary" id="sampleBtn">↻ Re-sample group</button></div>
+  </div>
+  <div class="widget-body">
+    <div class="grpo-prompt">Prompt <span class="m">x</span>: &nbsp;<em>What is 17 × 24?</em> &nbsp; <span class="a">grader: ✓ iff "408"</span></div>
+    <div class="slider-row">
+      <span>model accuracy</span>
+      <input type="range" id="accSlider" min="0" max="100" value="60" />
+      <span class="val" id="accVal">60%</span>
+      <span style="color:var(--faint)">· G = 6 generations</span>
+    </div>
+    <div class="grpo-grid" id="grpoGrid"></div>
+    <div class="axis-key"><span class="lo">◄ below average (suppress)</span><span>baseline = group mean</span><span class="hi">above average (reinforce) ►</span></div>
+    <div class="grpo-stats" id="grpoStats"></div>
+    <div class="grpo-note" id="grpoNote"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var WRONG = ["388","432","418","340","406","450","372"];
+  var G = 6;
+  var grid = document.getElementById("grpoGrid");
+  var statsEl = document.getElementById("grpoStats");
+  var noteEl = document.getElementById("grpoNote");
+  var sampleBtn = document.getElementById("sampleBtn");
+  var accSlider = document.getElementById("accSlider");
+  var accVal = document.getElementById("accVal");
+
+  // Math.random is fine here — this is a client-side illustrative toy.
+  function sampleGroup(p){
+    var rows = [];
+    for (var i=0;i<G;i++){
+      var correct = Math.random() < p;
+      rows.push({ ans: correct ? "408" : WRONG[Math.floor(Math.random()*WRONG.length)],
+                  r: correct ? 1 : 0 });
+    }
+    return rows;
+  }
+
+  function render(rows){
+    var n = rows.length;
+    var mean = rows.reduce(function(s,d){return s+d.r;},0)/n;
+    var variance = rows.reduce(function(s,d){return s+(d.r-mean)*(d.r-mean);},0)/n;
+    var std = Math.sqrt(variance);
+    var tie = std < 1e-9;
+    rows.forEach(function(d){ d.adv = tie ? 0 : (d.r-mean)/std; });
+
+    var maxAbs = 0;
+    rows.forEach(function(d){ if(Math.abs(d.adv)>maxAbs) maxAbs=Math.abs(d.adv); });
+    if (maxAbs===0) maxAbs = 1;
+
+    grid.innerHTML = "";
+    rows.forEach(function(d,i){
+      var row = document.createElement("div"); row.className="grpo-row";
+
+      var ans = document.createElement("div"); ans.className="gr-ans";
+      ans.innerHTML = '<span style="color:var(--faint)">y'+(i+1)+'</span> &nbsp;"'+d.ans+'"';
+
+      var rew = document.createElement("div"); rew.className="gr-rew "+(d.r===1?"ok":"no");
+      rew.innerHTML = d.r===1 ? "✓ r=1" : "✗ r=0";
+
+      var area = document.createElement("div"); area.className="bar-area";
+      var axis = document.createElement("div"); axis.className="bar-axis"; area.appendChild(axis);
+      var bar = document.createElement("div");
+      var frac = Math.abs(d.adv)/maxAbs; // 0..1
+      var widthPct = frac*46; // up to 46% of half-width
+      if (d.adv >= 0){ bar.className="bar pos"; }
+      else { bar.className="bar neg"; }
+      bar.style.width = "0%";
+      area.appendChild(bar);
+      var val = document.createElement("div"); val.className="bar-val";
+      var sign = d.adv>0?"+":"";
+      val.textContent = sign + d.adv.toFixed(2);
+      if (d.adv>=0){ val.style.left = "calc(50% + "+(widthPct)+"% + 6px)"; }
+      else { val.style.right = "calc(50% + "+(widthPct)+"% + 6px)"; }
+      area.appendChild(val);
+
+      row.appendChild(ans); row.appendChild(rew); row.appendChild(area);
+      grid.appendChild(row);
+
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ bar.style.width = widthPct+"%"; }); });
+    });
+
+    statsEl.innerHTML =
+      'group mean (baseline) = <b>'+mean.toFixed(2)+'</b>' +
+      ' &nbsp;·&nbsp; std = <b>'+std.toFixed(2)+'</b>' +
+      ' &nbsp;·&nbsp; correct: <b>'+rows.filter(function(d){return d.r===1;}).length+' / '+n+'</b>';
+
+    if (tie){
+      noteEl.textContent = rows[0].r===1
+        ? "Every attempt is correct → spread is zero → all advantages are 0. The model already aces this prompt: nothing to learn from it this step."
+        : "Every attempt is wrong → spread is zero → all advantages are 0. No attempt stood out, so there's no signal about which move to prefer.";
+    } else {
+      noteEl.textContent = "Correct answers landed above the group mean (green, reinforced); wrong ones below it (red, suppressed). Same reward of 1 is worth more advantage when correct answers are rare — drag the slider down and watch.";
+    }
+  }
+
+  function resample(){ render(sampleGroup(parseInt(accSlider.value,10)/100)); }
+  sampleBtn.addEventListener("click", resample);
+  accSlider.addEventListener("input", function(){ accVal.textContent = accSlider.value+"%"; resample(); });
+
+  resample();
+})();
+</script>
+
+<script>
+  /* Report content height to the host page so the embedding iframe can resize. */
+  (function(){
+    function send(){
+      var h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body ? document.body.scrollHeight : 0
+      );
+      if (window.parent && window.parent !== window){
+        window.parent.postMessage({ type:"blog-iframe-height", height:h }, "*");
+      }
+    }
+    window.addEventListener("load", send);
+    window.addEventListener("resize", send);
+    if (window.ResizeObserver){
+      try { new ResizeObserver(send).observe(document.documentElement); } catch(e){}
+    }
+    document.addEventListener("click", function(){ setTimeout(send, 500); });
+    document.addEventListener("input", function(){ setTimeout(send, 120); });
+    setTimeout(send, 120); setTimeout(send, 700); setTimeout(send, 1600);
+  })();
+</script>
+</body>
+</html>

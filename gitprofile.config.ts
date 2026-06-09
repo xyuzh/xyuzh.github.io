@@ -231,7 +231,7 @@ Previously I received my M.S. degree from the [Language Technology Institute](ht
     snippetVersion: 6,
   },
   themeConfig: {
-    defaultTheme: 'pastel',
+    defaultTheme: 'dark',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode

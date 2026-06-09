@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:opsz@6..72&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#1b2028; --card:#15181f; --ink:#ece9e3; --muted:#8b94a3; --faint:#6c7682;
+    --line:#242a33; --line-strong:#333b47;
+    --rl:#e2935c; --rl-tint:rgba(226,147,92,.16); --rl-edge:rgba(226,147,92,.42);
+    --lm:#7ea6f7; --lm-tint:rgba(126,166,247,.16); --lm-edge:rgba(126,166,247,.42);
+    --pos:#5fc77f; --neg:#e8736a;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --disp:"Fraunces",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --rad:14px;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  html,body{margin:0;background:#0f1216}
+  body{font-family:var(--serif);color:var(--ink);-webkit-font-smoothing:antialiased;padding:2px}
+  @keyframes pop{0%{opacity:0;transform:translateY(8px) scale(.9)}60%{transform:translateY(0) scale(1.04)}100%{opacity:1;transform:none}}
+
+  .widget{border:1px solid var(--line-strong);border-radius:var(--rad);background:var(--card);overflow:hidden}
+  .widget-head{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#1a1f27}
+  .widget-title{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .widget-title b{color:var(--ink)}
+  .widget-body{padding:24px 22px}
+  .ctrls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button.btn{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.02em;padding:8px 15px;border-radius:9px;border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);cursor:pointer;transition:all .14s}
+  button.btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+  button.btn:active{transform:translateY(0)}
+  button.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  button.btn.primary:hover{background:#fff}
+  button.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+  .toggle{display:inline-flex;border:1px solid var(--line-strong);border-radius:9px;overflow:hidden;font-family:var(--mono);font-size:12px}
+  .toggle button{padding:7px 13px;border:0;background:var(--paper);color:var(--muted);cursor:pointer;font:inherit;letter-spacing:.04em}
+  .toggle button.on[data-w="lm"]{background:var(--lm);color:#fff}
+  .toggle button.on[data-w="rl"]{background:var(--rl);color:#fff}
+  .stage-line{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .prompt-box{font-family:var(--serif);font-size:18px;background:var(--lm-tint);border:1px dashed var(--lm-edge);border-radius:10px;padding:11px 15px;margin-bottom:18px;color:#cdd6e5}
+  .prompt-box .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--lm);display:block;margin-bottom:3px}
+  .tape{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;min-height:64px;margin-bottom:8px}
+  .tok{font-family:var(--mono);font-size:16px;font-weight:500;padding:9px 13px;border-radius:9px;background:var(--paper);border:1px solid var(--line-strong);position:relative}
+  .tok .idx{position:absolute;top:-9px;left:-6px;font-size:9.5px;color:#fff;background:var(--rl);border-radius:5px;padding:1px 5px;letter-spacing:.04em}
+  .tok.show{animation:pop .32s ease both}
+  .tok.current{border-color:var(--rl);box-shadow:0 0 0 3px var(--rl-tint);background:#222a35}
+  .tok.eos{color:var(--muted)}
+  .reward-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:15px;font-weight:600;padding:9px 15px;border-radius:9px;background:rgba(47,122,79,.12);color:var(--pos);border:1px solid rgba(47,122,79,.3);opacity:0;transform:scale(.85);transition:all .35s}
+  .reward-badge.show{opacity:1;transform:none}
+  .readout{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+  .readout .cell{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:var(--paper)}
+  .readout .cell .h{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .readout .cell .h .swap{color:var(--rl)}
+  .readout .cell .v{font-family:var(--mono);font-size:15px;color:var(--ink);min-height:1.4em;word-break:break-word}
+  .readout .cell .v .ph{color:var(--faint)}
+  .stepcount{font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .stepcount b{color:var(--rl)}
+  @media (max-width:620px){ .readout{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion:reduce){ *{animation-duration:.001s !important} }
+</style>
+</head>
+<body>
+
+<div class="widget" id="rollout">
+  <div class="widget-head">
+    <div class="widget-title">Demo 1 · one <b>rollout</b>, token by token</div>
+    <div class="toggle" id="labelToggle" role="group" aria-label="label vocabulary">
+      <button data-w="lm" class="on">LM words</button>
+      <button data-w="rl">RL words</button>
+    </div>
+  </div>
+  <div class="widget-body">
+    <div class="prompt-box"><span class="tag" id="promptTag">Prompt&nbsp;·&nbsp;x</span>What is 17 × 24?</div>
+    <div class="stage-line" id="tapeLabel">Response y &nbsp;·&nbsp; generated so far</div>
+    <div class="tape" id="tape"></div>
+    <div id="rewardSlot"></div>
+    <div class="readout">
+      <div class="cell"><div class="h" id="stateHead">Prefix <span class="swap" style="color:var(--lm)">y<sub>&lt;t</sub></span> — what the model conditions on</div><div class="v" id="stateVal"><span class="ph">— press play —</span></div></div>
+      <div class="cell"><div class="h" id="actionHead">Token <span class="swap" style="color:var(--lm)">y<sub>t</sub></span> — the next-token sample</div><div class="v" id="actionVal"><span class="ph">—</span></div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;flex-wrap:wrap;gap:12px">
+      <div class="ctrls">
+        <button class="btn primary" id="playBtn">▶ Play</button>
+        <button class="btn" id="stepBtn">Step ⏭</button>
+        <button class="btn" id="resetBtn">↺ Reset</button>
+      </div>
+      <div class="stepcount">step <b id="tNow">0</b> / <span id="tTot">5</span> &nbsp;<span style="color:var(--faint)">(horizon T)</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // A fixed example episode. Real tokenizers split differently (e.g. "408" -> "4","08");
+  // we keep whole words so the *loop* is legible, not the BPE.
+  var TOKENS = ["The", "answer", "is", "408", "."];
+  var REWARD = 1; // "408" is correct (17 × 24 = 408)
+  var T = TOKENS.length;
+
+  var labels = {
+    lm: { prompt:"Prompt · x", tape:"Response y · generated so far",
+          stateH:'Prefix <span class="swap" style="color:var(--lm)">y<sub>&lt;t</sub></span> — what the model conditions on',
+          actionH:'Token <span class="swap" style="color:var(--lm)">y<sub>t</sub></span> — the next-token sample' },
+    rl: { prompt:"Initial state · s₀", tape:"Trajectory · the rollout so far",
+          stateH:'State <span class="swap">s<sub>t</sub></span> — the history so far',
+          actionH:'Action <span class="swap">a<sub>t</sub></span> — the move just made' }
+  };
+
+  var tape = document.getElementById("tape");
+  var stateVal = document.getElementById("stateVal");
+  var actionVal = document.getElementById("actionVal");
+  var rewardSlot = document.getElementById("rewardSlot");
+  var tNow = document.getElementById("tNow");
+  var playBtn = document.getElementById("playBtn");
+  var stepBtn = document.getElementById("stepBtn");
+  var resetBtn = document.getElementById("resetBtn");
+  document.getElementById("tTot").textContent = T;
+
+  var t = 0, timer = null, mode = "lm";
+
+  function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+  function renderStep(){
+    tape.innerHTML = "";
+    for (var k=0;k<t;k++){
+      var el = document.createElement("span");
+      el.className = "tok show" + (k===t-1?" current":"");
+      el.innerHTML = '<span class="idx">a'+(k+1)+'</span>' + esc(TOKENS[k]);
+      tape.appendChild(el);
+    }
+    tNow.textContent = t;
+    // state = prefix BEFORE the current action; action = current token
+    if (t===0){
+      stateVal.innerHTML = '<span class="ph">— press play —</span>';
+      actionVal.innerHTML = '<span class="ph">—</span>';
+    } else {
+      var prefix = TOKENS.slice(0,t-1).join(" ");
+      stateVal.innerHTML = '<span style="color:var(--lm)">[x]</span> ' + (prefix ? esc(prefix) : '<span class="ph">(empty — only the prompt)</span>');
+      actionVal.innerHTML = esc(TOKENS[t-1]);
+    }
+
+    // reward arrives only at the very end of the episode
+    rewardSlot.innerHTML = "";
+    if (t >= T){
+      var b = document.createElement("span");
+      b.className = "reward-badge";
+      b.innerHTML = '🏁 game over &nbsp;·&nbsp; reward r(y∣x) = '+REWARD+' &nbsp;<span style="opacity:.7">(correct)</span>';
+      rewardSlot.appendChild(b);
+      void b.offsetWidth; b.classList.add("show");
+    }
+    stepBtn.disabled = (t>=T);
+    playBtn.textContent = (t>=T) ? "▶ Replay" : (timer ? "⏸ Pause" : "▶ Play");
+  }
+
+  function step(){ if (t<T){ t++; renderStep(); } if (t>=T && timer){ clearInterval(timer); timer=null; renderStep(); } }
+  function reset(){ if(timer){clearInterval(timer);timer=null;} t=0; renderStep(); }
+
+  playBtn.addEventListener("click", function(){
+    if (t>=T) reset();
+    if (timer){ clearInterval(timer); timer=null; renderStep(); return; }
+    timer = setInterval(step, 620);
+    renderStep();
+  });
+  stepBtn.addEventListener("click", function(){ if(timer){clearInterval(timer);timer=null;} step(); });
+  resetBtn.addEventListener("click", reset);
+
+  var toggle = document.getElementById("labelToggle");
+  toggle.addEventListener("click", function(e){
+    var btn = e.target.closest("button"); if(!btn) return;
+    mode = btn.getAttribute("data-w");
+    [].forEach.call(toggle.querySelectorAll("button"), function(b){ b.classList.toggle("on", b===btn); });
+    var L = labels[mode];
+    document.getElementById("promptTag").textContent = L.prompt;
+    document.getElementById("tapeLabel").textContent = L.tape;
+    document.getElementById("stateHead").innerHTML = L.stateH;
+    document.getElementById("actionHead").innerHTML = L.actionH;
+  });
+
+  renderStep();
+})();
+</script>
+
+<script>
+  /* Report content height to the host page so the embedding iframe can resize. */
+  (function(){
+    function send(){
+      var h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body ? document.body.scrollHeight : 0
+      );
+      if (window.parent && window.parent !== window){
+        window.parent.postMessage({ type:"blog-iframe-height", height:h }, "*");
+      }
+    }
+    window.addEventListener("load", send);
+    window.addEventListener("resize", send);
+    if (window.ResizeObserver){
+      try { new ResizeObserver(send).observe(document.documentElement); } catch(e){}
+    }
+    document.addEventListener("click", function(){ setTimeout(send, 500); });
+    setTimeout(send, 120); setTimeout(send, 700); setTimeout(send, 1600);
+  })();
+</script>
+</body>
+</html>
