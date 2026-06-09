@@ -230,10 +230,6 @@ const Citation = ({
   return (
     <section className="academic-cite">
       <h2 className="academic-cite-title">Cite this post</h2>
-      <p className="academic-cite-text">
-        {author}. “{title}.” {year ? `${year}. ` : ''}
-        <a href={url}>{url}</a>
-      </p>
       <div className="academic-cite-box">
         <button
           type="button"

@@ -725,24 +725,6 @@ svg {
   margin: 0 0 0.7rem;
 }
 
-.academic-cite-text {
-  font-family: var(--ac-serif);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--ac-text-2);
-  margin: 0 0 1rem;
-}
-
-.academic-cite-text a {
-  color: var(--ac-link);
-  text-decoration: none;
-  word-break: break-all;
-}
-
-.academic-cite-text a:hover {
-  color: var(--ac-link-hover);
-}
-
 .academic-cite-box {
   position: relative;
   background: var(--ac-code-bg);
