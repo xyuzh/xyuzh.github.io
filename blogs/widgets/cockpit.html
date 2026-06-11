@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:opsz@6..72&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#1b2028; --card:#15181f; --ink:#ece9e3; --muted:#8b94a3; --faint:#6c7682;
+    --line:#242a33; --line-strong:#333b47;
+    --rl:#e2935c; --rl-tint:rgba(226,147,92,.16); --rl-edge:rgba(226,147,92,.42);
+    --lm:#7ea6f7; --lm-tint:rgba(126,166,247,.16); --lm-edge:rgba(126,166,247,.42);
+    --pos:#5fc77f; --neg:#e8736a;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --disp:"Fraunces",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --rad:14px;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  html,body{margin:0;background:#0f1216}
+  body{font-family:var(--serif);color:var(--ink);-webkit-font-smoothing:antialiased;padding:2px}
+
+  .widget{border:1px solid var(--line-strong);border-radius:var(--rad);background:var(--card);overflow:hidden}
+  .widget-head{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#1a1f27}
+  .widget-title{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .widget-title b{color:var(--ink)}
+  .widget-body{padding:22px}
+
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .preset{font-family:var(--mono);font-size:12px;padding:8px 13px;border-radius:9px;border:1px solid var(--line-strong);background:var(--paper);color:var(--muted);cursor:pointer;transition:all .14s;line-height:1.4;text-align:left}
+  .preset small{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .preset:hover{border-color:var(--ink);color:var(--ink)}
+  .preset.on{background:var(--rl-tint);border-color:var(--rl-edge);color:var(--ink)}
+  .preset.on small{color:var(--rl)}
+
+  .slider-row{display:grid;grid-template-columns:190px 1fr 110px;align-items:center;gap:14px;margin:10px 0;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .slider-row .lbl b{color:var(--ink);font-weight:600}
+  .slider-row .lbl .pt{display:block;font-size:10.5px;color:var(--faint);letter-spacing:.03em}
+  .slider-row input[type=range]{width:100%;accent-color:var(--lm)}
+  .slider-row .val{color:var(--lm);font-weight:600;text-align:right;white-space:nowrap}
+
+  .tally{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:22px 0 6px;font-family:var(--mono)}
+  .tally .eq{font-size:13px;color:var(--muted)}
+  .tally .big{font-family:var(--disp);font-size:34px;font-weight:600;color:var(--rl);line-height:1}
+  .tally .unit{font-size:12px;color:var(--muted)}
+  .compare{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .compare b{color:var(--ink)}
+
+  .scale{position:relative;height:64px;margin:6px 2px 4px}
+  .scale .rail{position:absolute;left:0;right:0;top:30px;height:8px;border-radius:4px;background:var(--paper);border:1px solid var(--line)}
+  .scale .fill{position:absolute;left:0;top:30px;height:8px;border-radius:4px 0 0 4px;background:linear-gradient(90deg,rgba(226,147,92,.35),var(--rl));transition:width .35s cubic-bezier(.2,.7,.2,1)}
+  .scale .tick{position:absolute;top:42px;font-family:var(--mono);font-size:10px;color:var(--faint);transform:translateX(-50%)}
+  .scale .marker{position:absolute;top:8px;transform:translateX(-50%);text-align:center}
+  .scale .marker .flag{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--lm);white-space:nowrap}
+  .scale .marker .stem{width:1px;height:16px;background:var(--lm-edge);margin:2px auto 0}
+  .scale .you{position:absolute;top:2px;transform:translateX(-50%);text-align:center;transition:left .35s cubic-bezier(.2,.7,.2,1)}
+  .scale .you .flag{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--rl);white-space:nowrap}
+  .scale .you .stem{width:2px;height:22px;background:var(--rl);margin:2px auto 0;border-radius:1px}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .chip{font-family:var(--mono);font-size:11.5px;padding:6px 11px;border-radius:8px;border:1px solid var(--line-strong);background:var(--paper);color:var(--muted)}
+  .chip b{color:var(--ink);font-weight:600}
+  .note{margin-top:14px;font-size:14px;font-style:italic;color:var(--muted);line-height:1.55;min-height:2.6em;font-family:var(--serif)}
+  .foot{margin-top:12px;font-family:var(--mono);font-size:10.5px;color:var(--faint);line-height:1.6}
+
+  @media (max-width:640px){
+    .slider-row{grid-template-columns:1fr;gap:4px}
+    .slider-row .val{text-align:left}
+    .tally .big{font-size:27px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition-duration:.001s !important} }
+</style>
+</head>
+<body>
+
+<div class="widget" id="cockpit">
+  <div class="widget-head">
+    <div class="widget-title">Demo 4 · the <b>hyperparameter cockpit</b> — one RL step, measured in pretraining units</div>
+  </div>
+  <div class="widget-body">
+    <div class="presets" id="presets"></div>
+
+    <div class="slider-row">
+      <span class="lbl"><b>B</b> · prompts per step<span class="pt">↔ documents per batch</span></span>
+      <input type="range" id="bSlider" min="0" max="12" value="9" />
+      <span class="val" id="bVal">512</span>
+    </div>
+    <div class="slider-row">
+      <span class="lbl"><b>G</b> · samples per prompt<span class="pt">↔ (no analog — duplicates for the curve)</span></span>
+      <input type="range" id="gSlider" min="0" max="6" value="4" />
+      <span class="val" id="gVal">16</span>
+    </div>
+    <div class="slider-row">
+      <span class="lbl"><b>L̄</b> · avg tokens per sample<span class="pt">↔ document length</span></span>
+      <input type="range" id="lSlider" min="6" max="15" value="12" />
+      <span class="val" id="lVal">4,096</span>
+    </div>
+
+    <div class="tally">
+      <span class="eq">self-written corpus per step &nbsp;=&nbsp; B · G · L̄ &nbsp;=</span>
+      <span class="big" id="tokens">33.6M</span>
+      <span class="unit">tokens&nbsp;&nbsp;(<span id="rollouts">8,192</span> documents)</span>
+    </div>
+    <div class="compare" id="compare"></div>
+
+    <div class="scale">
+      <div class="rail"></div>
+      <div class="fill" id="fill"></div>
+      <div class="you" id="you"><div class="flag">your RL step</div><div class="stem"></div></div>
+      <div class="marker" id="gpt3Marker"><div class="flag">GPT-3 pretraining batch · 3.2M</div><div class="stem"></div></div>
+      <div class="tick" style="left:0%">10⁴</div>
+      <div class="tick" style="left:20%">10⁵</div>
+      <div class="tick" style="left:40%">10⁶</div>
+      <div class="tick" style="left:60%">10⁷</div>
+      <div class="tick" style="left:80%">10⁸</div>
+      <div class="tick" style="left:100%;transform:translateX(-100%)">10⁹</div>
+    </div>
+
+    <div class="chips" id="chips"></div>
+    <div class="note" id="note"></div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var GPT3_BATCH = 3.2e6;     // tokens per pretraining batch, GPT-3 175B
+  var LOG_MIN = 4, LOG_MAX = 9;
+
+  var PRESETS = [
+    { id:"dsm", small:"GRPO · 2024", name:"DeepSeekMath",
+      b:4, g:6, l:10, // B=16, G=64, L̄=1024
+      chips:['lr <b>1e-6</b> (pretrain: ~1e-4 — 100× smaller)','KL leash <b>β = 0.04</b>','<b>1 update</b> per rollout batch (fully on-policy)','G = <b>64</b> — a deep curve per question'],
+      note:'The original GRPO recipe: huge groups (G=64) for a sharp baseline, short answers, and a strictly on-policy single update — no stale data, so the clip guard barely matters.',
+      foot:'Paper reports training batch 1024 with 64 samples per question — shown here as 16 questions × 64 samples per gradient step; max length 1024.' },
+    { id:"dapo", small:"reasoning RL · 2025", name:"DAPO",
+      b:9, g:4, l:12, // B=512, G=16, L̄=4096
+      chips:['lr <b>1e-6</b>','<b>no KL</b> — verifier rewards can\'t be hacked','clip <b>ε = 0.2 / 0.28</b> ("clip-higher": exploration bias)','generations up to <b>20,480</b> tokens'],
+      note:'A modern reasoning run: long chains of thought blow up L̄, so each step trains on a self-written corpus ~10× the size of a GPT-3 pretraining batch.',
+      foot:'B=512, G=16, lr, clip and KL removal from the DAPO paper; L̄=4,096 shown as a representative mid-training average (max generation 20,480).' },
+    { id:"ppo", small:"classic RLHF · 2022", name:"InstructGPT PPO",
+      b:9, g:0, l:8, // B=512, G=1, L̄=256
+      chips:['<b>G = 1</b> — no group; a learned <b>value network</b> predicts the baseline','per-token KL leash <b>β = 0.02</b>','reward = learned model of human preference (hackable!)'],
+      note:'Pre-GRPO RLHF: one sample per prompt, so the baseline must come from a second trained network — and the learned reward makes the KL leash mandatory.',
+      foot:'G=1-with-critic and β=0.02 from the InstructGPT paper; B and L̄ here are illustrative (short chat answers).' }
+  ];
+
+  var bS=document.getElementById("bSlider"), gS=document.getElementById("gSlider"), lS=document.getElementById("lSlider");
+  var bV=document.getElementById("bVal"), gV=document.getElementById("gVal"), lV=document.getElementById("lVal");
+  var tokensEl=document.getElementById("tokens"), rolloutsEl=document.getElementById("rollouts");
+  var compareEl=document.getElementById("compare"), fillEl=document.getElementById("fill"), youEl=document.getElementById("you");
+  var chipsEl=document.getElementById("chips"), noteEl=document.getElementById("note"), footEl=document.getElementById("foot");
+  var presetsEl=document.getElementById("presets");
+  var current = "dapo";
+
+  PRESETS.forEach(function(p){
+    var b=document.createElement("button");
+    b.className="preset"; b.innerHTML='<small>'+p.small+'</small>'+p.name;
+    b.addEventListener("click",function(){
+      current=p.id; bS.value=p.b; gS.value=p.g; lS.value=p.l; render();
+    });
+    presetsEl.appendChild(b);
+  });
+
+  document.getElementById("gpt3Marker").style.left = pct(GPT3_BATCH)+"%";
+
+  function pct(v){
+    var x=(Math.log10(v)-LOG_MIN)/(LOG_MAX-LOG_MIN)*100;
+    return Math.max(0,Math.min(100,x));
+  }
+  function fmt(n){
+    if(n>=1e9) return (n/1e9).toFixed(n<3e9?1:0)+"B";
+    if(n>=1e6) return (n/1e6).toFixed(n<3e7?1:0)+"M";
+    if(n>=1e3) return (n/1e3).toFixed(n<3e4?1:0)+"k";
+    return String(n);
+  }
+  function fmtInt(n){ return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","); }
+
+  function render(){
+    var B=Math.pow(2,parseInt(bS.value,10));
+    var G=Math.pow(2,parseInt(gS.value,10));
+    var L=Math.pow(2,parseInt(lS.value,10));
+    bV.textContent=fmtInt(B); gV.textContent=fmtInt(G); lV.textContent=fmtInt(L);
+
+    var docs=B*G, toks=B*G*L;
+    tokensEl.textContent=fmt(toks);
+    rolloutsEl.textContent=fmtInt(docs);
+
+    var ratio=toks/GPT3_BATCH;
+    compareEl.innerHTML = ratio>=1
+      ? '≈ <b>'+(ratio>=10?Math.round(ratio):ratio.toFixed(1))+'×</b> the corpus GPT-3 saw per pretraining step — and the model wrote every word of it minutes ago.'
+      : '≈ <b>'+(ratio>=0.095?(ratio*100).toFixed(0):(ratio*100).toFixed(1))+'%</b> of the corpus GPT-3 saw per pretraining step — written by the model itself minutes ago.';
+
+    var x=pct(toks);
+    fillEl.style.width=x+"%";
+    youEl.style.left=x+"%";
+
+    var p=null;
+    for (var i=0;i<PRESETS.length;i++){
+      var q=PRESETS[i];
+      if (q.id===current && parseInt(bS.value,10)===q.b && parseInt(gS.value,10)===q.g && parseInt(lS.value,10)===q.l){ p=q; break; }
+    }
+    [].forEach.call(presetsEl.children,function(btn,i){ btn.classList.toggle("on", !!p && PRESETS[i].id===p.id); });
+
+    if (p){
+      chipsEl.innerHTML = p.chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join("");
+      noteEl.textContent = p.note;
+      footEl.textContent = p.foot;
+    } else {
+      chipsEl.innerHTML = '<span class="chip">custom config — typical stability knobs: lr <b>~1e-6</b> · clip <b>ε≈0.2</b> · KL β <b>0–0.04</b></span>';
+      noteEl.textContent = "Your own recipe. Notice the trade at fixed compute: B×G is the budget — spend it on more prompts (diverse corpus, noisier curve) or bigger groups (sharper baseline, fewer dead groups)?";
+      footEl.textContent = "";
+    }
+  }
+
+  [bS,gS,lS].forEach(function(s){ s.addEventListener("input",render); });
+  render();
+})();
+</script>
+
+<script>
+  /* Report content height to the host page so the embedding iframe can resize. */
+  (function(){
+    function send(){
+      var h = Math.max(
+        document.documentElement.scrollHeight,
+        document.body ? document.body.scrollHeight : 0
+      );
+      if (window.parent && window.parent !== window){
+        window.parent.postMessage({ type:"blog-iframe-height", height:h }, "*");
+      }
+    }
+    window.addEventListener("load", send);
+    window.addEventListener("resize", send);
+    if (window.ResizeObserver){
+      try { new ResizeObserver(send).observe(document.documentElement); } catch(e){}
+    }
+    document.addEventListener("click", function(){ setTimeout(send, 450); });
+    document.addEventListener("input", function(){ setTimeout(send, 120); });
+    setTimeout(send, 120); setTimeout(send, 700); setTimeout(send, 1600);
+  })();
+</script>
+</body>
+</html>

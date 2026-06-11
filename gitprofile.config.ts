@@ -215,7 +215,10 @@ Previously I received my M.S. degree from the [Language Technology Institute](ht
     },
   ],
   // Academic service (rendered as its own section; supports markdown links)
-  service: ['Reviewer: ICLR, NeurIPS, ICML'],
+  service: [
+    'Reviewer: ICLR, NeurIPS, ICML',
+    'Artifact Evaluation Committee: SOSP 2026',
+  ],
   // Display articles from your medium or dev account. (Optional)
   blog: {
     source: 'medium', // medium | dev

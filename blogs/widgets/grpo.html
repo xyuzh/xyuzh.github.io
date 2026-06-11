@@ -68,19 +68,23 @@
 
 <div class="widget" id="grpo">
   <div class="widget-head">
-    <div class="widget-title">Demo 2 · <b>group-relative advantage</b> (the heart of GRPO)</div>
+    <div class="widget-title">Demo 3 · <b>the weight assigner</b> — group-relative advantage</div>
     <div class="ctrls"><button class="btn primary" id="sampleBtn">↻ Re-sample group</button></div>
   </div>
   <div class="widget-body">
     <div class="grpo-prompt">Prompt <span class="m">x</span>: &nbsp;<em>What is 17 × 24?</em> &nbsp; <span class="a">grader: ✓ iff "408"</span></div>
     <div class="slider-row">
-      <span>model accuracy</span>
+      <span>model accuracy <span class="m">p</span></span>
       <input type="range" id="accSlider" min="0" max="100" value="60" />
       <span class="val" id="accVal">60%</span>
-      <span style="color:var(--faint)">· G = 6 generations</span>
+    </div>
+    <div class="slider-row" style="margin-top:-12px">
+      <span>group size <span class="m">G</span></span>
+      <input type="range" id="gSlider" min="2" max="16" value="6" />
+      <span class="val" id="gVal">6</span>
     </div>
     <div class="grpo-grid" id="grpoGrid"></div>
-    <div class="axis-key"><span class="lo">◄ below average (suppress)</span><span>baseline = group mean</span><span class="hi">above average (reinforce) ►</span></div>
+    <div class="axis-key"><span class="lo">◄ negative weight — unlearn this</span><span>baseline = group mean</span><span class="hi">positive weight — learn this ►</span></div>
     <div class="grpo-stats" id="grpoStats"></div>
     <div class="grpo-note" id="grpoNote"></div>
   </div>
@@ -91,18 +95,23 @@
   "use strict";
 
   var WRONG = ["388","432","418","340","406","450","372"];
-  var G = 6;
   var grid = document.getElementById("grpoGrid");
   var statsEl = document.getElementById("grpoStats");
   var noteEl = document.getElementById("grpoNote");
   var sampleBtn = document.getElementById("sampleBtn");
   var accSlider = document.getElementById("accSlider");
   var accVal = document.getElementById("accVal");
+  var gSlider = document.getElementById("gSlider");
+  var gVal = document.getElementById("gVal");
+
+  function G(){ return parseInt(gSlider.value,10); }
+  function P(){ return parseInt(accSlider.value,10)/100; }
 
   // Math.random is fine here — this is a client-side illustrative toy.
   function sampleGroup(p){
     var rows = [];
-    for (var i=0;i<G;i++){
+    var n = G();
+    for (var i=0;i<n;i++){
       var correct = Math.random() < p;
       rows.push({ ans: correct ? "408" : WRONG[Math.floor(Math.random()*WRONG.length)],
                   r: correct ? 1 : 0 });
@@ -136,7 +145,7 @@
       var axis = document.createElement("div"); axis.className="bar-axis"; area.appendChild(axis);
       var bar = document.createElement("div");
       var frac = Math.abs(d.adv)/maxAbs; // 0..1
-      var widthPct = frac*46; // up to 46% of half-width
+      var widthPct = frac*36; // capped so the value label never collides with the grade column
       if (d.adv >= 0){ bar.className="bar pos"; }
       else { bar.className="bar neg"; }
       bar.style.width = "0%";
@@ -154,23 +163,29 @@
       requestAnimationFrame(function(){ requestAnimationFrame(function(){ bar.style.width = widthPct+"%"; }); });
     });
 
+    // Theoretical dead-group probability: all G samples score the same.
+    var p = P(), g = G();
+    var pDead = Math.pow(p,g) + Math.pow(1-p,g);
+
     statsEl.innerHTML =
       'group mean (baseline) = <b>'+mean.toFixed(2)+'</b>' +
       ' &nbsp;·&nbsp; std = <b>'+std.toFixed(2)+'</b>' +
-      ' &nbsp;·&nbsp; correct: <b>'+rows.filter(function(d){return d.r===1;}).length+' / '+n+'</b>';
+      ' &nbsp;·&nbsp; correct: <b>'+rows.filter(function(d){return d.r===1;}).length+' / '+n+'</b>' +
+      ' &nbsp;·&nbsp; P(dead group) = p<sup>G</sup>+(1−p)<sup>G</sup> = <b>'+(pDead*100).toFixed(1)+'%</b>';
 
     if (tie){
       noteEl.textContent = rows[0].r===1
-        ? "Every attempt is correct → spread is zero → all advantages are 0. The model already aces this prompt: nothing to learn from it this step."
-        : "Every attempt is wrong → spread is zero → all advantages are 0. No attempt stood out, so there's no signal about which move to prefer.";
+        ? "Dead group: every attempt is correct → spread is zero → every weight is 0. The model already aces this prompt; this step it teaches nothing. (Sampling at temperature 0 makes every group look like this — G identical copies.)"
+        : "Dead group: every attempt is wrong → spread is zero → every weight is 0. No attempt stood out, so there is no signal about what to prefer. Raising G gives hard prompts more chances to produce one standout success.";
     } else {
-      noteEl.textContent = "Correct answers landed above the group mean (green, reinforced); wrong ones below it (red, suppressed). Same reward of 1 is worth more advantage when correct answers are rare — drag the slider down and watch.";
+      noteEl.textContent = "Correct answers landed above the group mean — they enter training with positive weight, like fresh pretraining data. Wrong ones get negative weight: their exact token sequences are actively unlearned. The same reward of 1 earns a larger weight when success is rare — drag accuracy down and watch.";
     }
   }
 
-  function resample(){ render(sampleGroup(parseInt(accSlider.value,10)/100)); }
+  function resample(){ render(sampleGroup(P())); }
   sampleBtn.addEventListener("click", resample);
   accSlider.addEventListener("input", function(){ accVal.textContent = accSlider.value+"%"; resample(); });
+  gSlider.addEventListener("input", function(){ gVal.textContent = gSlider.value; resample(); });
 
   resample();
 })();

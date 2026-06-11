@@ -584,6 +584,13 @@ svg {
   margin: 0 0 1.1rem;
 }
 
+.academic-blog-post-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1.6rem 0 0.4rem;
+}
+
 .academic-blog-post-body strong {
   color: var(--ac-text);
   font-weight: 600;
